@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cors())
 
 
+
 //auth routes
 app.use('/auth', authRoutes)
 
