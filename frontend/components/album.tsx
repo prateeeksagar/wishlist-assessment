@@ -10,7 +10,7 @@ const Album = ({ id, title}: albumType) => {
       <Button variant="ghost" className="w-full h-full m-1 text-left">
         <Card className="w-full h-full hover:shadow-md">
           <CardHeader className='h-full items-start justify-center'>
-            <CardTitle className="text-lg items-center justify-center ">
+            <CardTitle className="text-sm md:text-lg items-center justify-center text-wrap">
               {title}
             </CardTitle>
           </CardHeader>
