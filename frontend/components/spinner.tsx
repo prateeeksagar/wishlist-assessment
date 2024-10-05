@@ -1,10 +1,5 @@
 
-interface SpinnerProps {
-  size?: 'sm' | 'md' | 'lg'
-  className?: string
-}
-
-export default function CustomeSpinner({ size = 'md', className }: SpinnerProps) {
+export default function CustomeSpinner() {
   return (
     <div className="flex items-center justify-center h-screen text-slate-700">
     <div className="flex items-center justify-center">

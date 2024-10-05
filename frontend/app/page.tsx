@@ -11,13 +11,13 @@ import PageTransition from "@/components/pageTransition";
 
 export default function Home() {
   const router = useRouter();
+  const userLogged = async () => {
+    const loggedIn = await isLoggedIn();
+    if (loggedIn) {
+      router.push("/dashboard");
+    }
+  };
   useEffect(() => {
-    const userLogged = async () => {
-      let loggedIn = await isLoggedIn();
-      if (loggedIn) {
-        router.push("/dashboard");
-      }
-    };
     userLogged();
   }, []);
 

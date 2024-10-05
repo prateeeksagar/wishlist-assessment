@@ -8,7 +8,6 @@ import { isLoggedIn, postData } from "@/utils/fetch.api";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import Image from "next/image";
 import { toast } from "sonner"
 import { AudioLines } from "lucide-react";
 import PageTransition from "@/components/pageTransition";
@@ -28,7 +27,6 @@ export default function Page() {
   const handleSubmit = async () => {
     try {
       const resp: logInResponse = await postData("/auth/login", credential);
-      console.log("here it is",resp)
       if (resp && resp.status && resp.token && resp.id) {
         Cookies.set("token", resp.token);
         Cookies.set("id", resp.id);
@@ -36,11 +34,10 @@ export default function Page() {
         toast('Successfully LoggedIn!')
 
       } else {
-        console.log("in the else part")
         toast(resp.message || "please try again.")
       }
     } catch (error: any) {
-      console.log("this is the error",error)
+      toast(error.message || "please try again.")
     }
   };
 

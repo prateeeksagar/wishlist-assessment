@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { albumImageType } from '@/utils/types'
 import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import axios from 'axios';
 import AlbumImage from '@/components/albumImage';
 import { isLoggedIn } from '@/utils/fetch.api';
@@ -13,7 +12,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import CustomeSpinner from '@/components/spinner';
 
-const page = ({params}: {params: {id : string}}) => {
+const Page = ({params}: {params: {id : string}}) => {
   // const router = useRouter()
   const {id} = params;
   const [albumImages, setAlbumImages] = useState<albumImageType[]>([]);
@@ -44,7 +43,7 @@ const page = ({params}: {params: {id : string}}) => {
     getAlbumsImage()
   },[])
 
-  if(loading) return (<CustomeSpinner size="lg" />)
+  if(loading) return (<CustomeSpinner  />)
 
   return (
     <div>
@@ -63,6 +62,6 @@ const page = ({params}: {params: {id : string}}) => {
 
 
 
-export default page
+export default Page
 
 

@@ -3,7 +3,7 @@ import { albumImageType } from '@/utils/types'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
 import Image from 'next/image'
 
-const AlbumImage = ({albumId, id, title, url, thumbnailUrl}: albumImageType) => {
+const AlbumImage = ({albumId, id ,title, url, thumbnailUrl}: albumImageType) => {
   return (
     <Card className="w-full md:max-w-[1/3] md:h-[] md:w-[1/3] items-center justify-center bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       <CardHeader className="relative w-full h-48 overflow-hidden">

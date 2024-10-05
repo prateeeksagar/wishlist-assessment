@@ -1,11 +1,10 @@
 "use client"
-import { isLoggedIn, postData } from '@/utils/fetch.api'
+import { isLoggedIn } from '@/utils/fetch.api'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { albumType } from '../utils/types'
 import Album from './album'
 import { CustomPagination } from './pagination'
-import { AlbumTitle } from './skeletons/skeletons'
 import { useRouter } from 'next/navigation'
 import CustomeSpinner from './spinner'
 

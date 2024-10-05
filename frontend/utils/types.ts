@@ -1,7 +1,7 @@
 export type albumType = {
-    userId: string
-    id: string,
-    title: string
+    userId?: string
+    id?: string,
+    title?: string
 }
 
 export type albumImageType = {

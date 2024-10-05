@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import { Card, CardHeader, CardTitle } from './ui/card'
 
-const Album = ({userId, id, title}: albumType) => {
+const Album = ({ id, title}: albumType) => {
   return (
     <Link href={`/album/${id}`} passHref>
       <Button variant="ghost" className="w-full h-full m-1 text-left">
