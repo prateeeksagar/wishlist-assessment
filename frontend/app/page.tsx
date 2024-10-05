@@ -29,7 +29,7 @@ export default function Home() {
           <AudioLines height={60} width={60} className="text-rose-700 " />
         </Link>
       </div>
-      <h1 className="text-5xl font-bold">Welcome to Bliss</h1>
+      <h1 className="text-4xl md:text-5xl font-bold items-center justify-center">Welcome to Bliss</h1>
       <p className="text-lg text-gray-600 m-8">
         Immerse yourself in a world of relaxing sounds. Let the music take you
         away!
