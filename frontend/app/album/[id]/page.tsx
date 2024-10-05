@@ -11,13 +11,13 @@ import Header from '@/components/header';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-
-
+import CustomeSpinner from '@/components/spinner';
 
 const page = ({params}: {params: {id : string}}) => {
   // const router = useRouter()
   const {id} = params;
   const [albumImages, setAlbumImages] = useState<albumImageType[]>([]);
+  const [loading ,setLoading] = useState(true)
   const router = useRouter();
   useEffect(() => {
     const getAlbumsImage = async () => {
@@ -27,6 +27,7 @@ const page = ({params}: {params: {id : string}}) => {
         
         if(!isLogged) {
           router.push('/login')
+
         } else {
           const resp = await axios.get(`https://jsonplaceholder.typicode.com/albums/${id}/photos`)
           console.log(resp)
@@ -35,12 +36,15 @@ const page = ({params}: {params: {id : string}}) => {
               setAlbumImages([...albumImages, ...resp.data])
           }
         }
+        setLoading(false)
       } catch (error) {
-          
+          setLoading(false)
       }
     }
     getAlbumsImage()
   },[])
+
+  if(loading) return (<CustomeSpinner size="lg" />)
 
   return (
     <div>
@@ -56,6 +60,8 @@ const page = ({params}: {params: {id : string}}) => {
     </div>
   )
 }
+
+
 
 export default page
 

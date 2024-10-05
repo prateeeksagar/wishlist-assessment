@@ -20,9 +20,17 @@ export const postData = async <T>(endpoint: string, data: any, config?: AxiosReq
         const response = await axios.post<T>(`${API_BASE_URL}${endpoint}`, data);
         console.log(response)
         return response.data;
-    } catch (error) {
-        console.error("Error in POST request:", error);
-        throw error;
+    } catch (error: any) {
+        if (error.response) {
+            // Log error details from the response
+            // console.error("Error Response Data:", error.response.data);
+            // console.error("Error Response Status:", error.response.status);
+            // console.error("Error Response Headers:", error.response.headers);
+            return error.response.data;
+        } else {
+            // Throw generic error if no response from the server
+            return error.response || "Something went wrong";
+        }
     }
 };
 

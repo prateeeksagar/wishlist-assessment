@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <div className='p-6 flex items-center justify-between border'>
-        <Link href="/dashboard"><AudioLines height={30} width={30}/></Link>
+        <Link href="/dashboard"><AudioLines height={30} width={30} className='text-rose-700'/></Link>
         <div><Button onClick={handleLogout}>Logout</Button></div>
     </div>
   )

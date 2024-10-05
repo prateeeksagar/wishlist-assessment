@@ -2,10 +2,12 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/users'
 import { Request, Response } from 'express'
+import {z} from 'zod'
+import { loginSchema, signupSchema } from '../utils/validations'
 
 const signup = async (req: Request, res: Response): Promise<void> => {
     try {
-        const {username, password } = req.body
+        const {username, password } = signupSchema.parse(req.body);
         console.log(username)
 
         const isUserExist = await User.findOne({username})
@@ -29,14 +31,24 @@ const signup = async (req: Request, res: Response): Promise<void> => {
         }
 
     } catch (error) {
-        console.log(error)
-        res.status(500).json({message: "Something went wrong. Please try again later", status: false})
+        if (error instanceof z.ZodError) {
+            // Handle Zod validation errors
+            res.status(400).json({
+              message: error.errors[0].message,
+              status: false
+            });
+          } else {
+            console.log(error);
+            res.status(500).json({ message: "Something went wrong. Please try again later", status: false });
+          }
+        // console.log(error)
+        // res.status(500).json({message: "Something went wrong. Please try again later", status: false})
     }
 }
 
 const login = async (req: Request,res: Response): Promise<void> => {
     try {
-        const { username, password } = req.body;
+        const { username, password } = loginSchema.parse(req.body);
 
         const user = await User.findOne({username, deleted: "N"})
         console.log("this is user")
@@ -75,8 +87,16 @@ const login = async (req: Request,res: Response): Promise<void> => {
         }
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({message: "Something went wrong. Please try again later", status: false})
+        if (error instanceof z.ZodError) {
+            // Handle Zod validation errors
+            res.status(400).json({
+              message: error.errors[0].message,
+              status: false
+            });
+          } else {
+            console.log(error);
+            res.status(500).json({ message: "Something went wrong. Please try again later", status: false });
+          }
     }
 
 }

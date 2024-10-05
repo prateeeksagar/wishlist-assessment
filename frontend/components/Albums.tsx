@@ -7,12 +7,13 @@ import Album from './album'
 import { CustomPagination } from './pagination'
 import { AlbumTitle } from './skeletons/skeletons'
 import { useRouter } from 'next/navigation'
+import CustomeSpinner from './spinner'
 
 const Albums = () => {
     const [albums, setAlbums] = useState<albumType[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10); // Number of items per page
-    const [isLoading, setIsLoading] = useState()
+    const [loading, setLoading] = useState<boolean>(true)
     const router = useRouter()
     // Fetch albums once when the component mounts
     const getAlbums = async () => {
@@ -27,8 +28,10 @@ const Albums = () => {
             );
             setAlbums(response.data); // Store all albums in state
         }
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching albums:", error);
+        setLoading(false)
       }
     };
   
@@ -41,6 +44,8 @@ const Albums = () => {
     const indexOfFirstAlbum = indexOfLastAlbum - itemsPerPage;
     const currentAlbums = albums.slice(indexOfFirstAlbum, indexOfLastAlbum);
     const totalItems = albums.length; // Total items is the length of all albums
+
+    if(loading) return <CustomeSpinner/>
   
     return (
       <div className='my-3'>

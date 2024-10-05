@@ -3,7 +3,7 @@ import Albums from '../../components/Albums'
 import Header from '@/components/header'
 const page = () => {
   return (
-    <div className=''>
+    <div>
         <Header/>
         <Albums/>
     </div>

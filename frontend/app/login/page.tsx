@@ -2,14 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { isLoggedIn, postData } from "@/utils/fetch.api";
@@ -17,6 +9,10 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
+import { toast } from "sonner"
+import { AudioLines } from "lucide-react";
+import PageTransition from "@/components/pageTransition";
+
 
 type logInResponse = {
   message: string;
@@ -32,15 +28,19 @@ export default function Page() {
   const handleSubmit = async () => {
     try {
       const resp: logInResponse = await postData("/auth/login", credential);
+      console.log("here it is",resp)
       if (resp && resp.status && resp.token && resp.id) {
         Cookies.set("token", resp.token);
         Cookies.set("id", resp.id);
         router.push("/dashboard");
+        toast('Successfully LoggedIn!')
+
       } else {
-        console.log(resp);
+        console.log("in the else part")
+        toast(resp.message || "please try again.")
       }
-    } catch (error) {
-      console.log("this is error", error);
+    } catch (error: any) {
+      console.log("this is the error",error)
     }
   };
 
@@ -55,6 +55,11 @@ export default function Page() {
   }, []);
 
   return (
+    <PageTransition>
+    <div>
+    <div className='p-6 flex items-center justify-between border'>
+      <Link href="/"><AudioLines height={30} width={30}className="text-rose-700"/></Link>
+    </div>
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
       <div className="flex mx-4 mt-12 md:mt-0  items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
@@ -106,7 +111,7 @@ export default function Page() {
         <h1 className="flex h-full items-center justify-center text-[50px] font-bold">Where words fail, <br/> Music Speaks</h1>
       </div>
     </div>
+    </div>
+    </PageTransition>
   );
 }
-
-{/* <div style="width:100%;height:0;padding-bottom:100%;position:relative;"><iframe src="https://giphy.com/embed/SF87yb6bKq8JDN3UMC" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cat-cartoon-tuxedo-SF87yb6bKq8JDN3UMC">via GIPHY</a></p> */}
