@@ -62,4 +62,4 @@ Here's a structured version of your assessment documentation for running the pro
 
 ---
 
-This format provides clear steps for setting up the project, making it easier for anyone to follow. If you have any additional information or adjustments, feel free to add them!
+This format provides clear steps for setting up the project.
