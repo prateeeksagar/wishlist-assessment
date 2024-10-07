@@ -48,7 +48,7 @@ const Page = ({params}: {params: {id : string}}) => {
   return (
     <div>
       <Header/>
-      <div className='bg-slate-100'>
+      <div className='bg-slate-100 dark:bg-slate-600'>
       <Link href="/dashboard"><div className='items-center p-2'><Button variant="outline" className='ml-5'><ChevronLeft/>Back</Button></div></Link>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4 p-6 items-center justify-center '>
       {albumImages.map(({albumId, id, title, url, thumbnailUrl}: any) => (

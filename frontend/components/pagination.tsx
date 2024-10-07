@@ -43,14 +43,14 @@ import {
           {/* Only display the first two pages and the last two pages to manage the number of displayed pages */}
           {totalPages > 2 && (
             <>
-              {currentPage > 2 && (
+              {currentPage > 1 && (
                 <>
                   <PaginationItem>
                     <PaginationLink href="#" onClick={() => handlePageChange(1)}>
                       1
                     </PaginationLink>
                   </PaginationItem>
-                  {currentPage > 3 && <PaginationEllipsis />}
+                  <PaginationEllipsis />
                 </>
               )}
   

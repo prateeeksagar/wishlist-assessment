@@ -12,6 +12,9 @@ import { toast } from "sonner"
 import { AudioLines } from "lucide-react";
 import PageTransition from "@/components/pageTransition";
 
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "@/redux/features/authSlice";
+import { RootState, AppDispatch } from "@/redux/store";
 
 type logInResponse = {
   message: string;
@@ -23,28 +26,44 @@ type logInResponse = {
 export default function Page() {
   const [credential, setCredential] = useState({ username: "", password: "" });
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleSubmit = async () => {
-    try {
-      const resp: logInResponse = await postData("/auth/login", credential);
-      if (resp && resp.status && resp.token && resp.id) {
-        Cookies.set("token", resp.token);
-        Cookies.set("id", resp.id);
+  // const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     const resp: logInResponse = await postData("/auth/login", credential);
+  //     if (resp && resp.status && resp.token && resp.id) {
+  //       Cookies.set("token", resp.token);
+  //       Cookies.set("id", resp.id);
+  //       router.push("/dashboard");
+  //       toast('Successfully LoggedIn!')
+
+  //     } else {
+  //       toast(resp.message || "please try again.")
+  //     }
+  //   } catch (error: any) {
+  //     toast(error.message || "please try again.")
+  //   }
+  // };
+
+  const handleSubmit = () => {
+    dispatch(loginUser(credential))
+      .unwrap()
+      .then(() => {
         router.push("/dashboard");
-        toast('Successfully LoggedIn!')
-
-      } else {
-        toast(resp.message || "please try again.")
-      }
-    } catch (error: any) {
-      toast(error.message || "please try again.")
-    }
+        toast('Successfully Logged In!');
+      })
+      .catch((err: any) => {
+        toast(err || "Login failed, please try again.");
+      });
   };
 
   useEffect(() => {
     const userLogged = async () => {
       let loggedIn: any = await isLoggedIn();
-      if (loggedIn && loggedIn.status) {
+      if (loggedIn) {
         router.push("/dashboard");
       }
     };
